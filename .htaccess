@@ -1,0 +1,29 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirigir /index.php y /index a /inicio
+RewriteCond %{THE_REQUEST} /index\.php [NC]
+RewriteRule ^index\.php$ /inicio [R=301,L]
+
+RewriteCond %{THE_REQUEST} /index[\s/?] [NC]
+RewriteRule ^index$ /inicio [R=301,L]
+
+# Rutas limpias hacia archivos PHP
+RewriteRule ^inicio$ index.php [L]
+RewriteRule ^login$ login.php [L]
+RewriteRule ^cambiar-clave$ change_password.php [L]
+RewriteRule ^dashboard$ dashboard.php [L]
+RewriteRule ^descargar$ descargar.php [L]
+
+# Eliminar .php de la URL escrita directamente
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/([a-zA-Z0-9_-]+)\.php [NC]
+RewriteRule ^([a-zA-Z0-9_-]+)\.php$ /$1 [R=301,L]
+
+# Ruta amigable para cotejo
+RewriteRule ^cotejo/([A-Z0-9\-]+)$ cotejo.php?uuid=$1 [L,QSA]
+
+# php -- BEGIN cPanel-generated handler, do not edit
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

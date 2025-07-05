@@ -1,0 +1,317 @@
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll-left 30s linear infinite;
+}
+
+:root {
+  --color-dorado: #D4AF37;
+  --color-naranja: #F97316;
+  --color-verde-oscuro: #14532D;
+}
+
+.text-dorado {
+  color: var(--color-dorado);
+}
+
+.bg-dorado {
+  background-color: var(--color-dorado);
+}
+
+.text-verde-oscuro {
+  color: var(--color-verde-oscuro);
+}
+
+.bg-naranja {
+  background-color: var(--color-naranja);
+}
+
+.bg-verde-oscuro {
+  background-color: var(--color-verde-oscuro);
+}
+
+.border-blanco {
+  border: 1px solid #fff;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: #1e293b;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+h2 {
+  color: #1e3a8a;
+}
+
+.scroll-track {
+  animation: scroll-left 30s linear infinite;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-tab {
+  background: #eee;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-tab:hover {
+  background-color: #ddd;
+}
+
+.active-tab {
+  background-color: var(--color-dorado);
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+#menuButton {
+  background-color: #14532D;
+}
+
+#menuDropdown a {
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .scroll-track img {
+    height: 180px;
+  }
+
+  header.institucional h1 {
+    font-size: 1.25rem;
+  }
+
+  header.institucional .subtitulo {
+    font-size: 0.85rem;
+  }
+}
+
+html.dark body {
+  background-color: #1f2937;
+  color: #f3f4f6;
+}
+
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark p {
+  color: #fefefe;
+}
+
+html.dark .btn-tab {
+  background-color: #374151;
+  color: #fefefe;
+}
+
+html.dark .btn-tab.active-tab {
+  background-color: var(--color-dorado);
+  color: #000;
+}
+
+html.dark .bg-white {
+  background-color: #1f2937 !important;
+}
+
+html.dark .text-gray-900 {
+  color: #f9fafb !important;
+}
+
+html.dark input,
+html.dark select {
+  background-color: #334155;
+  color: #fefefe;
+  border-color: #475569;
+}
+
+.dark .dot {
+  transform: translateX(20px);
+}
+
+html.dark header {
+  background: linear-gradient(to right, #1e293b, #111827, #1e293b) !important;
+  border-bottom: 1px solid #334155;
+}
+
+html.dark header.institucional h1,
+html.dark header.institucional .subtitulo {
+  color: #f1f5f9 !important;
+}
+
+html.dark footer {
+  background-color: #111827 !important;
+}
+
+html.dark #menuDropdown {
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
+}
+
+html.dark #menuDropdown a {
+  color: #f1f5f9;
+}
+
+html.dark #menuDropdown a:hover {
+  background-color: #334155;
+}
+
+html.dark #menuButton {
+  background-color: #667b9e;
+}
+
+html.dark section.bg-gray-100 {
+  background-color: #1f2937 !important;
+}
+
+#modalContacto {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modalContacto .animate-fade-in-down {
+  animation: fadeInDown 0.3s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 1024px) {
+  header.institucional h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-cols-5-xl {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+button,
+.btn-tab {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+input,
+textarea {
+  font-size: 1rem;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+html.dark textarea {
+  background-color: #334155;
+  color: #fefefe;
+  border-color: #475569;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#modalCurso {
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+#modalFlyer {
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* NUEVO ESTILO DEL MODAL */
+#modalCurso .descripcion-texto {
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+#modalCurso h2#modalNombre {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+#modalCurso .espaciado-inferior {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  #modalCurso h2#modalNombre {
+    font-size: 1.25rem;
+  }
+
+  #modalCurso .descripcion-texto {
+    font-size: 0.9rem;
+  }
+}
+
+#modalCurso button.close-btn {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  font-size: 2rem;
+  color: white;
+  background: transparent;
+  border: none;
+  z-index: 60;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  transition: transform 0.2s ease, text-shadow 0.2s ease;
+}
+
+#modalCurso button.close-btn:hover {
+  transform: scale(1.1);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}

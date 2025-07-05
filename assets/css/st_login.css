@@ -1,0 +1,79 @@
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+:root {
+  --color-dorado: #D4AF37;
+  --color-naranja: #ea580c;         /* Tailwind orange-600 */
+  --color-naranja-hover: #c2410c;   /* Hover naranja */
+  --color-verde-oscuro: #14532D;
+}
+
+.text-dorado {
+  color: var(--color-dorado);
+}
+
+.bg-naranja {
+  background-color: var(--color-naranja);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.bg-naranja:hover {
+  background-color: var(--color-naranja-hover);
+}
+
+.bg-naranja:active {
+  transform: scale(0.95);
+}
+
+.bg-verde-oscuro {
+  background-color: var(--color-verde-oscuro);
+}
+
+.border-blanco {
+  border: 1px solid #fff;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alerta-exito,
+.alerta-error {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  animation: fadeInSlide 0.4s ease-out;
+}
+
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 60s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}

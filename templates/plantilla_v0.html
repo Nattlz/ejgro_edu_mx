@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<style>
+		@page {
+			size: letter landscape;
+			margin: 0;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			background-image: url('{{fondo_base64}}');
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+			font-family: "Times New Roman", serif;
+		}
+
+		.nombre {
+			position: absolute;
+			top: 380px;
+			width: 100%;
+			text-align: center;
+			font-size: 32pt;
+			color: #2D503A;
+		}
+
+		.nombre-sm {
+            font-size: 28pt !important;
+        }
+
+        .nombre-xs {
+            font-size: 25pt !important;
+        }
+
+		.qr {
+			position: absolute;
+			bottom: 60px;
+			left: 100px;
+			width: 100px;
+			height: 100px;
+		}
+
+		.qr img {
+			width: 100%;
+			height: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="nombre {{clase_nombre}}">{{nombre_completo}}</div>
+
+	<div class="qr">
+		<img src="{{qr_base64}}" alt="Código QR">
+	</div>
+</body>
+
+</html>

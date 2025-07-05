@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: letter portrait;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('{{fondo_base64}}');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: top left;
+            font-family: "Times New Roman", serif;
+        }
+
+        main {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .contenedor {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 155px 40px 40px;
+            box-sizing: border-box;
+            text-align: center;
+            color: #000;
+        }
+
+        h1 {
+            font-size: 20pt;
+            margin: 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #006400;
+        }
+
+        h2 {
+            font-size: 16.5pt;
+            margin: 6px 0 20px;
+            text-transform: uppercase;
+            color: #006400;
+        }
+
+        .detalle {
+            font-size: 12.5pt;
+            margin-top: 20px;
+            margin-bottom: 6px;
+        }
+
+        .nombre {
+            font-size: 22.5pt;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            word-break: break-word;
+            white-space: normal;
+            line-height: 1.2;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nombre-sm {
+            font-size: 20pt !important;
+        }
+
+        .nombre-xs {
+            font-size: 18pt !important;
+        }
+
+        .detalle-1 {
+            font-size: 21pt;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .detalle-2 {
+            font-size: 12.5pt;
+            word-break: break-word;
+            white-space: normal;
+            line-height: 1.4;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .firmante {
+            margin: -50px auto 20px;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+
+        .firma-wrapper {
+            position: relative;
+            display: inline-block;
+            padding-top: 110px;
+        }
+
+        .img-firma {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 200px;
+            opacity: 0.95;
+        }
+
+        .nombre-firmante {
+            font-size: 18pt;
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        .cargo-firmante {
+            font-size: 15pt;
+            margin-top: 2px;
+        }
+
+        .info-certificado {
+            max-width: 700px;
+            margin: 10px auto 0;
+            font-size: 11pt;
+            line-height: 1.5;
+            text-align: left;
+            padding: 0 40px;
+            box-sizing: border-box;
+            display: table;
+            width: 100%;
+        }
+
+        .fila {
+            display: table-row;
+        }
+
+        .label,
+        .valor {
+            display: table-cell;
+            vertical-align: top;
+            padding: 2px 6px;
+        }
+
+        .label {
+            white-space: nowrap;
+            font-weight: bold;
+            width: 190px;
+            text-align: right;
+            padding-right: 30px;
+        }
+
+        .valor {
+            width: auto;
+            text-align: left;
+        }
+
+        .cadena-original {
+            font-size: 10pt;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+        .footer {
+            display: table;
+            width: auto;
+            margin: 30px 60px 40px;
+            page-break-inside: avoid;
+        }
+
+        .footer img {
+            display: table-cell;
+            width: 90px;
+            height: 90px;
+            vertical-align: top;
+            padding-right: 20px;
+        }
+
+        .footer-texto {
+            display: table-cell;
+            text-align: justify;
+            font-size: 9pt;
+            line-height: 1.3;
+            vertical-align: top;
+            max-width: 550px;
+        }
+
+        .footer-texto a {
+            color: #1a0dab;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="contenedor">
+            <h1>Poder Judicial del Estado de Guerrero</h1>
+            <h2>Instituto para el Mejoramiento Judicial</h2>
+
+            <div class="detalle">Se expide la presente constancia en favor de:</div>
+            <div class="nombre {{clase_nombre}}">{{nombre_completo}}</div>
+
+            <div class="detalle">
+                Por su asistencia {{asistencia}}:<br>
+            </div>
+
+            <div class="detalle-1">
+                "<strong>{{nombre}}</strong>"
+            </div>
+
+            <div class="detalle-2">
+                {{fecha}}{{horas}},<br>{{lugar}}.
+            </div>
+        </div>
+
+        <div class="firmante">
+            <div class="firma-wrapper">
+                <img src="{{firma_base64}}" alt="Firma Dr. Edgardo Mendoza Falcón" class="img-firma">
+                <div class="nombre-firmante">Dr. Edgardo Mendoza Falcón</div>
+                <div class="cargo-firmante">Director del Instituto para el Mejoramiento Judicial</div>
+            </div>
+        </div>
+
+        <div class="info-certificado">
+            <div class="fila">
+                <span class="label">Servidor público facultado:</span>
+                <span class="valor">Dr. Edgardo Mendoza Falcón</span>
+            </div>
+            <div class="fila">
+                <span class="label">Cargo:</span>
+                <span class="valor">Director del Instituto para el Mejoramiento Judicial</span>
+            </div>
+            <div class="fila">
+                <span class="label">Número de certificado:</span>
+                <span class="valor">{{numero_certificado}}</span>
+            </div>
+            <div class="fila">
+                <span class="label">Fecha:</span>
+                <span class="valor">{{generado_en}}</span>
+            </div>
+            <div class="fila">
+                <span class="label">UUID:</span>
+                <span class="valor">{{uuid}}</span>
+            </div>
+            <div class="fila">
+                <span class="label">Cadena original:</span>
+                <span class="valor cadena-original">||{{uuid}}|{{nombre_completo}}|"{{nombre}}"|{{lugar}}|{{fecha}}{{horas}}|EDGARDO MENDOZA FALCÓN|{{numero_certificado}}|{{generado_en}}||</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <img src="{{qr_base64}}" alt="QR">
+            <div class="footer-texto">
+                El presente documento fue firmado conforme a lo dispuesto en la Ley de Firma Electrónica Avanzada. La
+                ley le confiere la misma validez jurídica que una firma autógrafa así como presunción de integridad y
+                presunción de atribución de las firmas. Para cualquier aclaración envía un correo a <a
+                    href="mailto:constancias@ejgro.edu.mx">constancias@ejgro.edu.mx</a>. Para verificar la integridad de
+                este documento, favor de escanear el código QR o visitar el enlace:
+                <a href="https://ejgro.edu.mx/cotejo/{{uuid}}">https://ejgro.edu.mx/cotejo/{{uuid}}</a>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

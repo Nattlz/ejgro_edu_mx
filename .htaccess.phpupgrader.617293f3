@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^cotejo/([A-Z0-9\-]+)$ cotejo.php?uuid=$1 [L,QSA]
