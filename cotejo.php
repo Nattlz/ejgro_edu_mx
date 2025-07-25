@@ -137,6 +137,11 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('letter', $orientacion);
 $dompdf->render();
 
+// ✅ Marcar token como usado solo si existe uno activo para este UUID y aún no usado
+$marcar = $conn->prepare("UPDATE tokens_temporales SET usado = 1 WHERE uuid = ? AND usado = 0");
+$marcar->bind_param("s", $uuid);
+$marcar->execute();
+
 // Evitar cache
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Pragma: no-cache");
@@ -144,3 +149,4 @@ header("Pragma: no-cache");
 // Limpiar nombre de archivo
 $nombreLimpio = preg_replace('/[^a-zA-Z0-9_-]/', '_', $data['nombre_completo']);
 $dompdf->stream("Constancia_{$nombreLimpio}.pdf", ['Attachment' => false]);
+exit;

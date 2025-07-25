@@ -1,23 +1,120 @@
 @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
 
+/* ========== VARIABLES CSS ========== */
+:root {
+  --color-dorado: #D4AF37;
+  --color-naranja: #F97316;
+  --color-verde-oscuro: #14532D;
+}
+
+/* ========== ANIMACIONES BASE ========== */
 @keyframes scroll-left {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
 }
 
-.animate-scroll {
-  animation: scroll-left 30s linear infinite;
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-:root {
-  --color-dorado: #D4AF37;
-  --color-naranja: #F97316;
-  --color-verde-oscuro: #14532D;
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shake {
+  0%, 20%, 40%, 60%, 80% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70% {
+    transform: translateX(-5px);
+  }
+  90% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes loading-shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes modalEnhancedFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+}
+
+@keyframes closeButtonEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-180deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes closeButtonEntranceCorner {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translate(10px, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+/* ========== CLASES UTILITY ========== */
+.animate-scroll {
+  animation: scroll-left 30s linear infinite;
 }
 
 .text-dorado {
@@ -44,6 +141,27 @@
   border: 1px solid #fff;
 }
 
+.hidden {
+  display: none;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-fade-in-down {
+  animation: modalEnhancedFadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* ========== ESTILOS BASE ========== */
 body {
   font-family: 'Segoe UI', sans-serif;
   line-height: 1.6;
@@ -58,23 +176,25 @@ h2 {
   color: #1e3a8a;
 }
 
+input, textarea {
+  font-size: 1rem;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+button, .btn-tab {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
 .scroll-track {
   animation: scroll-left 30s linear infinite;
 }
 
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* ========== BOTONES Y TABS ========== */
 .btn-tab {
   background: #eee;
   padding: 0.75rem 1.25rem;
@@ -87,15 +207,31 @@ h2 {
   background-color: #ddd;
 }
 
+.btn-tab:hover:not(.active-tab) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .active-tab {
   background-color: var(--color-dorado);
   color: white;
 }
 
-.hidden {
-  display: none;
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  transition: all 0.3s ease;
+}
+
+button:disabled:hover {
+  transform: none !important;
+}
+
+/* ========== MENU ========== */
 #menuButton {
   background-color: #14532D;
 }
@@ -104,29 +240,413 @@ h2 {
   font-weight: 500;
 }
 
-@media (max-width: 640px) {
-  .scroll-track img {
-    height: 180px;
-  }
-
-  header.institucional h1 {
-    font-size: 1.25rem;
-  }
-
-  header.institucional .subtitulo {
-    font-size: 0.85rem;
-  }
+/* ========== ESTADOS DE FORMULARIO ========== */
+.spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
+.form-loading {
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.field-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+  transition: all 0.3s ease;
+  animation: shake 0.5s ease-in-out;
+}
+
+.btn-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: loading-shine 1.5s infinite;
+}
+
+/* ========== FOCUS STATES ========== */
+input:focus, textarea:focus, button:focus {
+  outline: 2px solid var(--color-naranja);
+  outline-offset: 2px;
+}
+
+/* ========== TOASTS ========== */
+#toastExito, #toastError {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateX(0);
+  z-index: 9999;
+  max-width: 350px;
+  word-wrap: break-word;
+}
+
+#toastExito.opacity-0, #toastError.opacity-0 {
+  transform: translateX(100%);
+  opacity: 0 !important;
+}
+
+/* ========== MODALES - CONFIGURACIÓN BASE ========== */
+#modalCurso, #modalSolicitud, #modalContacto {
+  backdrop-filter: blur(12px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.65) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#modalCurso {
+  padding-top: 0 !important;
+}
+
+#modalCurso > div, #modalSolicitud > div, #modalContacto > div {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 1rem !important;
+  transform: scale(1);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#modalCurso > div {
+  margin-top: 0;
+  position: relative;
+}
+
+#modalCurso.hidden > div, #modalSolicitud.hidden > div, #modalContacto.hidden > div {
+  animation: modalFadeOut 0.3s ease-out;
+}
+
+#modalCurso:not(.hidden) button.close-btn {
+  animation: closeButtonEntranceCorner 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+}
+
+/* ========== BOTÓN DE CERRAR - MODAL DE CURSO ========== */
+#modalCurso button.close-btn {
+  position: absolute;
+  top: -2.5rem;
+  right: -2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font-size: 2rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  font-weight: 300;
+  line-height: 1;
+  user-select: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#modalCurso button.close-btn:hover {
+  background: transparent;
+  color: #ef4444;
+  transform: scale(1.15);
+  text-shadow: 
+    0 0 8px rgba(239, 68, 68, 0.8),
+    0 0 16px rgba(239, 68, 68, 0.6),
+    0 0 24px rgba(239, 68, 68, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: none;
+}
+
+#modalCurso button.close-btn:active {
+  transform: scale(1.05);
+  color: #dc2626;
+  text-shadow: 
+    0 0 6px rgba(220, 38, 38, 0.9),
+    0 0 12px rgba(220, 38, 38, 0.7),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ========== BOTONES DE CERRAR - OTROS MODALES ========== */
+#modalSolicitud button[onclick*="cerrar"],
+#modalContacto button[onclick*="cerrar"] {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  font-weight: 300;
+}
+
+#modalSolicitud button[onclick*="cerrar"]:hover,
+#modalContacto button[onclick*="cerrar"]:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+/* ========== EFECTOS VISUALES EN MODALES ========== */
+#modalCurso > div::before {
+  content: '';
+  position: absolute;
+  top: -1rem;
+  right: 2rem;
+  width: 2rem;
+  height: 0.5rem;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.2), transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+#modalCurso button.close-btn:hover + div::before,
+#modalCurso > div:hover::before {
+  opacity: 1;
+}
+
+/* ========== CONTENIDO DE MODALES ========== */
+#modalCurso h3 {
+  background: linear-gradient(135deg, var(--color-dorado), #b8860b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+#modalCurso h2#modalNombre {
+  background: linear-gradient(135deg, var(--color-verde-oscuro), #16a34a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  line-height: 1.2;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#modalCurso .descripcion-texto {
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+#modalCurso .espaciado-inferior {
+  margin-bottom: 2rem;
+}
+
+#modalCurso .space-y-2 p {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+}
+
+#modalCurso .space-y-2 p:last-child {
+  border-bottom: none;
+}
+
+/* ========== IMAGEN DEL FLYER ========== */
+#modalFlyer {
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 0.75rem !important;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#modalFlyer:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* ========== BOTONES DE ACCIÓN ========== */
+#modalBotonConstancia button,
+#modalSolicitud button[type="submit"],
+#modalContacto button[type="submit"] {
+  background: linear-gradient(135deg, var(--color-verde-oscuro), #16a34a) !important;
+  border: none;
+  border-radius: 0.75rem !important;
+  padding: 0.75rem 2rem !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 15px -3px rgba(20, 83, 45, 0.3),
+    0 4px 6px -2px rgba(20, 83, 45, 0.1);
+}
+
+#modalSolicitud button[type="submit"],
+#modalContacto button[type="submit"] {
+  background: linear-gradient(135deg, var(--color-naranja), #ea580c) !important;
+  box-shadow: 
+    0 10px 15px -3px rgba(249, 115, 22, 0.3),
+    0 4px 6px -2px rgba(249, 115, 22, 0.1);
+}
+
+#modalBotonConstancia button:hover,
+#modalSolicitud button[type="submit"]:hover,
+#modalContacto button[type="submit"]:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 20px 25px -5px rgba(20, 83, 45, 0.4),
+    0 10px 10px -5px rgba(20, 83, 45, 0.2);
+}
+
+#modalSolicitud button[type="submit"]:hover,
+#modalContacto button[type="submit"]:hover {
+  box-shadow: 
+    0 20px 25px -5px rgba(249, 115, 22, 0.4),
+    0 10px 10px -5px rgba(249, 115, 22, 0.2);
+}
+
+/* Efecto de brillo en botones */
+#modalBotonConstancia button::before,
+#modalSolicitud button[type="submit"]::before,
+#modalContacto button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+#modalBotonConstancia button:hover::before,
+#modalSolicitud button[type="submit"]:hover::before,
+#modalContacto button[type="submit"]:hover::before {
+  left: 100%;
+}
+
+/* ========== FORMULARIOS ========== */
+#modalSolicitud input,
+#modalContacto input,
+#modalContacto textarea {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(209, 213, 219, 0.3) !important;
+  border-radius: 0.75rem !important;
+  padding: 0.875rem 1rem !important;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+#modalSolicitud input:focus,
+#modalContacto input:focus,
+#modalContacto textarea:focus {
+  background: rgba(255, 255, 255, 1) !important;
+  border-color: var(--color-naranja) !important;
+  box-shadow: 
+    0 0 0 3px rgba(249, 115, 22, 0.1),
+    0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+#modalSolicitud label,
+#modalContacto label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.25px;
+}
+
+/* ========== TÍTULOS DE MODALES ========== */
+#modalSolicitud h2,
+#modalContacto h2 {
+  background: linear-gradient(135deg, var(--color-verde-oscuro), #16a34a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+#modalSolicitud h2::after,
+#modalContacto h2::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-dorado), var(--color-naranja));
+  border-radius: 1px;
+}
+
+/* ========== SCROLLBARS PERSONALIZADAS ========== */
+#modalCurso > div::-webkit-scrollbar,
+#modalSolicitud > div::-webkit-scrollbar,
+#modalContacto > div::-webkit-scrollbar {
+  width: 6px;
+}
+
+#modalCurso > div::-webkit-scrollbar-track,
+#modalSolicitud > div::-webkit-scrollbar-track,
+#modalContacto > div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#modalCurso > div::-webkit-scrollbar-thumb,
+#modalSolicitud > div::-webkit-scrollbar-thumb,
+#modalContacto > div::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-dorado), var(--color-naranja));
+  border-radius: 10px;
+}
+
+/* ========== DARK MODE ========== */
 html.dark body {
   background-color: #1f2937;
   color: #f3f4f6;
 }
 
-html.dark h1,
-html.dark h2,
-html.dark h3,
-html.dark p {
+html.dark h1, html.dark h2, html.dark h3, html.dark p {
   color: #fefefe;
 }
 
@@ -148,11 +668,19 @@ html.dark .text-gray-900 {
   color: #f9fafb !important;
 }
 
-html.dark input,
-html.dark select {
+html.dark input, html.dark select, html.dark textarea {
   background-color: #334155;
   color: #fefefe;
   border-color: #475569;
+}
+
+html.dark input:focus, html.dark textarea:focus {
+  outline-color: var(--color-dorado);
+}
+
+html.dark .field-error {
+  border-color: #f87171 !important;
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.3) !important;
 }
 
 .dark .dot {
@@ -194,97 +722,135 @@ html.dark section.bg-gray-100 {
   background-color: #1f2937 !important;
 }
 
-#modalContacto {
-  background-color: rgba(0, 0, 0, 0.5);
+/* Dark mode para modales */
+html.dark #modalCurso > div,
+html.dark #modalSolicitud > div,
+html.dark #modalContacto > div {
+  background: rgba(31, 41, 55, 0.95) !important;
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
-#modalContacto .animate-fade-in-down {
-  animation: fadeInDown 0.3s ease-out;
+html.dark #modalCurso button.close-btn {
+  color: #ffffff;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+html.dark #modalCurso button.close-btn:hover {
+  color: #f87171;
+  background: transparent;
+  text-shadow: 
+    0 0 8px rgba(248, 113, 113, 0.8),
+    0 0 16px rgba(248, 113, 113, 0.6),
+    0 0 24px rgba(248, 113, 113, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.7);
+  box-shadow: none;
 }
 
+html.dark #modalCurso button.close-btn:active {
+  color: #ef4444;
+  text-shadow: 
+    0 0 6px rgba(239, 68, 68, 0.9),
+    0 0 12px rgba(239, 68, 68, 0.7),
+    0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+html.dark #modalSolicitud button[onclick*="cerrar"],
+html.dark #modalContacto button[onclick*="cerrar"] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #9ca3af;
+}
+
+html.dark #modalSolicitud button[onclick*="cerrar"]:hover,
+html.dark #modalContacto button[onclick*="cerrar"]:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+html.dark #modalCurso h3 {
+  background: linear-gradient(135deg, var(--color-dorado), #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html.dark #modalCurso h2#modalNombre {
+  background: linear-gradient(135deg, #ffffff, #e5e7eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html.dark #modalSolicitud input,
+html.dark #modalContacto input,
+html.dark #modalContacto textarea {
+  background: rgba(55, 65, 81, 0.8) !important;
+  border-color: rgba(75, 85, 99, 0.3) !important;
+  color: #ffffff !important;
+}
+
+html.dark #modalSolicitud input:focus,
+html.dark #modalContacto input:focus,
+html.dark #modalContacto textarea:focus {
+  background: rgba(55, 65, 81, 1) !important;
+  border-color: var(--color-dorado) !important;
+  box-shadow: 
+    0 0 0 3px rgba(212, 175, 55, 0.1),
+    0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+html.dark #modalSolicitud label,
+html.dark #modalContacto label {
+  color: #d1d5db;
+}
+
+html.dark #modalSolicitud h2,
+html.dark #modalContacto h2 {
+  background: linear-gradient(135deg, #ffffff, #e5e7eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========== RESPONSIVE OPTIMIZADO PARA MÓVILES ========== */
+
+/* Tablets grandes y desktop */
 @media (min-width: 1024px) {
   header.institucional h1 {
     font-size: 2rem;
   }
-}
-
-@media (min-width: 1280px) {
-  .grid-cols-5-xl {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+  
+  #modalCurso button.close-btn {
+    top: -2.5rem;
+    right: -2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 2rem;
   }
 }
 
-button,
-.btn-tab {
-  min-height: 44px;
-  min-width: 44px;
-  touch-action: manipulation;
+/* Tablets medianas */
+@media (max-width: 1023px) and (min-width: 769px) {
+  #modalCurso button.close-btn {
+    top: -0.75rem;
+    right: -0.75rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.75rem;
+  }
+  
+  #modalCurso > div {
+    margin: 1.5rem;
+    padding: 1.5rem !important;
+  }
 }
 
-input,
-textarea {
-  font-size: 1rem;
-  min-width: 0;
-  width: 100%;
-  box-sizing: border-box;
-  max-width: 100%;
-}
-
-html.dark textarea {
-  background-color: #334155;
-  color: #fefefe;
-  border-color: #475569;
-}
-
-.truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#modalCurso {
-  backdrop-filter: blur(8px);
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-#modalFlyer {
-  max-height: 60vh;
-  object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* NUEVO ESTILO DEL MODAL */
-#modalCurso .descripcion-texto {
-  text-align: justify;
-  text-justify: inter-word;
-  font-size: 0.95rem;
-  line-height: 1.75;
-  margin-bottom: 1.5rem;
-}
-
-#modalCurso h2#modalNombre {
-  font-size: 1.5rem;
-  line-height: 1.4;
-  margin-bottom: 1.5rem;
-}
-
-#modalCurso .espaciado-inferior {
-  margin-bottom: 2rem;
-}
-
+/* Tablets pequeñas */
 @media (max-width: 768px) {
   #modalCurso h2#modalNombre {
     font-size: 1.25rem;
@@ -293,25 +859,302 @@ html.dark textarea {
   #modalCurso .descripcion-texto {
     font-size: 0.9rem;
   }
+
+  #modalCurso button.close-btn {
+    top: -0.5rem;
+    right: -0.5rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+  }
+  
+  #modalCurso > div {
+    margin: 1rem;
+    padding: 1.25rem !important;
+  }
+  
+  /* Ajustar imagen en tablets */
+  #modalFlyer {
+    max-height: 45vh;
+  }
 }
 
-#modalCurso button.close-btn {
-  position: fixed;
-  top: 1.5rem;
-  right: 2rem;
-  font-size: 2rem;
-  color: white;
-  background: transparent;
-  border: none;
-  z-index: 60;
-  cursor: pointer;
-  padding: 0;
-  line-height: 1;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
-  transition: transform 0.2s ease, text-shadow 0.2s ease;
+/* Móviles grandes (iPhone Plus, Android grandes) */
+@media (max-width: 640px) {
+  .scroll-track img {
+    height: 180px;
+  }
+
+  header.institucional h1 {
+    font-size: 1.25rem;
+  }
+
+  header.institucional .subtitulo {
+    font-size: 0.85rem;
+  }
+
+  #modalCurso {
+    padding: 0.5rem !important;
+  }
+
+  #modalCurso button.close-btn {
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 1.25rem;
+  }
+
+  #modalCurso > div {
+    margin: 0 !important;
+    padding: 1rem !important;
+    border-radius: 0.75rem !important;
+    max-height: calc(100vh - 1rem);
+    overflow-y: auto;
+  }
+  
+  /* Layout vertical forzado en móviles */
+  #modalCurso .flex[class*="flex-col"][class*="lg:flex-row"] {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+  
+  #modalCurso .w-full[class*="lg:w-1/2"] {
+    width: 100% !important;
+  }
+  
+  /* Imagen optimizada para móviles */
+  #modalFlyer {
+    max-height: 35vh;
+    width: 100%;
+  }
+  
+  /* Texto centrado en móviles */
+  #modalCurso .text-center[class*="lg:text-left"] {
+    text-align: center !important;
+  }
+  
+  /* Títulos más pequeños */
+  #modalCurso h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  #modalCurso h2#modalNombre {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Información más compacta */
+  #modalCurso .space-y-2 {
+    margin-bottom: 1rem;
+  }
+  
+  #modalCurso .space-y-2 p {
+    padding: 0.25rem 0;
+    font-size: 0.875rem;
+  }
+  
+  /* Botón de constancia adaptado */
+  #modalBotonConstancia {
+    margin-top: 1rem !important;
+  }
+  
+  #modalBotonConstancia button {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  #modalSolicitud > div,
+  #modalContacto > div {
+    margin: 0.5rem;
+    border-radius: 0.75rem !important;
+    padding: 1rem !important;
+  }
+
+  #modalContacto .bg-white {
+    margin: 0.5rem;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+
+  #toastExito,
+  #toastError {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+  }
 }
 
-#modalCurso button.close-btn:hover {
-  transform: scale(1.1);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+/* Móviles medianos (iPhone estándar, Android medianos) */
+@media (max-width: 480px) {
+  #modalCurso {
+    padding: 0.25rem !important;
+  }
+  
+  #modalCurso button.close-btn {
+    top: 0.125rem;
+    right: 0.125rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.125rem;
+  }
+  
+  #modalCurso > div {
+    padding: 0.75rem !important;
+    max-height: calc(100vh - 0.5rem);
+  }
+  
+  /* Imagen más pequeña */
+  #modalFlyer {
+    max-height: 30vh;
+  }
+  
+  /* Espaciado reducido */
+  #modalCurso .flex[class*="flex-col"][class*="lg:flex-row"] {
+    gap: 0.75rem !important;
+  }
+  
+  /* Texto más compacto */
+  #modalCurso p {
+    font-size: 0.825rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+  }
+  
+  #modalCurso h3 {
+    font-size: 0.925rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  #modalCurso h2#modalNombre {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Móviles pequeños (iPhone SE, Android pequeños) */
+@media (max-width: 400px) {
+  #modalCurso {
+    padding: 0.125rem !important;
+  }
+  
+  #modalCurso button.close-btn {
+    top: 0;
+    right: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 1rem;
+  }
+
+  #modalCurso > div {
+    margin: 0 !important;
+    padding: 0.5rem !important;
+    border-radius: 0.5rem !important;
+    max-height: 100vh;
+  }
+  
+  /* Imagen muy compacta */
+  #modalFlyer {
+    max-height: 25vh;
+  }
+  
+  /* Espaciado mínimo */
+  #modalCurso .flex[class*="flex-col"][class*="lg:flex-row"] {
+    gap: 0.5rem !important;
+  }
+  
+  /* Texto muy compacto */
+  #modalCurso p {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+  
+  #modalCurso h3 {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  #modalCurso h2#modalNombre {
+    font-size: 0.925rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Información muy compacta */
+  #modalCurso .space-y-2 p {
+    padding: 0.125rem 0;
+    font-size: 0.75rem;
+  }
+  
+  /* Botón pequeño */
+  #modalBotonConstancia button {
+    padding: 0.375rem 0.75rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  #modalSolicitud > div,
+  #modalContacto > div {
+    margin: 0.25rem;
+    padding: 0.75rem !important;
+  }
+}
+
+/* Móviles en orientación landscape */
+@media (max-width: 812px) and (orientation: landscape) {
+  #modalCurso {
+    padding: 0.25rem !important;
+  }
+  
+  #modalCurso > div {
+    max-height: calc(100vh - 0.5rem);
+    padding: 0.75rem !important;
+  }
+  
+  #modalFlyer {
+    max-height: 60vh;
+  }
+  
+  #modalCurso button.close-btn {
+    top: 0.125rem;
+    right: 0.125rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.125rem;
+  }
+}
+
+/* Tablets en orientación portrait */
+@media (min-width: 641px) and (max-width: 1024px) and (orientation: portrait) {
+  #modalCurso > div {
+    margin: 1rem;
+    padding: 1.5rem !important;
+  }
+  
+  #modalFlyer {
+    max-height: 50vh;
+  }
+}
+
+/* Ajustes para pantallas muy altas (como algunos móviles modernos) */
+@media (min-height: 800px) and (max-width: 640px) {
+  #modalFlyer {
+    max-height: 40vh;
+  }
+}
+
+/* Ajustes para pantallas muy anchas en móviles */
+@media (min-width: 1280px) {
+  .grid-cols-5-xl {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  
+  #modalCurso button.close-btn {
+    top: -1.25rem;
+    right: -1.25rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 2.25rem;
+  }
 }

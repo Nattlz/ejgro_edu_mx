@@ -21,12 +21,25 @@ $cursos_proximos = obtenerCursosPublicados($conn, 'proximo');
 <head>
   <meta charset="UTF-8">
   <title>Inicio | Instituto para el Mejoramiento Judicial</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/assets/css/st_index.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans" data-toast-error="<?= isset($_SESSION['toast_error']) ? htmlspecialchars($_SESSION['toast_error']) : '' ?>">
+
+  <?php if (isset($_SESSION['toast_success'])): ?>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (window.mostrarToast) {
+          window.mostrarToast('<?= addslashes($_SESSION['toast_success']) ?>');
+        }
+      });
+    </script>
+  <?php
+    unset($_SESSION['toast_success']);
+  endif; ?>
 
   <div class="fixed top-4 right-4 z-50">
     <div class="relative">
@@ -128,12 +141,10 @@ $cursos_proximos = obtenerCursosPublicados($conn, 'proximo');
       <button onclick="cerrarModalCurso()" class="close-btn" aria-label="Cerrar modal">&times;</button>
 
       <div class="flex flex-col lg:flex-row items-center lg:items-start gap-6">
-        <!-- Flyer -->
         <div class="w-full lg:w-1/2">
           <img id="modalFlyer" src="" alt="Flyer del curso" class="w-full max-h-[60vh] object-contain rounded-md shadow-md">
         </div>
 
-        <!-- Descripción -->
         <div class="w-full lg:w-1/2 text-center lg:text-left flex flex-col justify-between">
           <div>
             <h3 class="text-xl font-bold text-dorado uppercase mb-2 tracking-wide">Instituto para el Mejoramiento Judicial</h3>
@@ -182,21 +193,37 @@ $cursos_proximos = obtenerCursosPublicados($conn, 'proximo');
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-xl mx-4 sm:mx-auto p-6 relative animate-fade-in-down">
       <button onclick="cerrarModalContacto()" class="absolute top-3 right-3 text-gray-600 dark:text-gray-300 hover:text-red-500 text-xl font-bold">&times;</button>
       <h2 class="text-2xl font-bold text-center text-verde-oscuro dark:text-white mb-4">Contáctanos</h2>
-      <form id="formContacto" class="space-y-4">
+
+      <form action="/procesar-contacto" method="POST" id="formContacto" class="space-y-4">
         <div>
-          <label class="block text-sm font-semibold mb-1 dark:text-gray-200">Nombre completo</label>
-          <input type="text" name="nombre" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Tu nombre completo">
+          <label class="block text-sm font-semibold mb-1 dark:text-gray-200">
+            Nombre completo <span class="text-red-500">*</span>
+          </label>
+          <input type="text" name="nombre" required
+            class="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-naranja focus:border-transparent transition duration-200"
+            placeholder="Tu nombre completo">
         </div>
         <div>
-          <label class="block text-sm font-semibold mb-1 dark:text-gray-200">Correo electrónico</label>
-          <input type="email" name="correo" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="tucorreo@ejemplo.com">
+          <label class="block text-sm font-semibold mb-1 dark:text-gray-200">
+            Correo electrónico <span class="text-red-500">*</span>
+          </label>
+          <input type="email" name="correo" required
+            class="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-naranja focus:border-transparent transition duration-200"
+            placeholder="tucorreo@ejemplo.com">
         </div>
         <div>
-          <label class="block text-sm font-semibold mb-1 dark:text-gray-200">Mensaje</label>
-          <textarea name="mensaje" rows="4" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Escribe tu mensaje..."></textarea>
+          <label class="block text-sm font-semibold mb-1 dark:text-gray-200">
+            Mensaje <span class="text-red-500">*</span>
+          </label>
+          <textarea name="mensaje" rows="4" required
+            class="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-naranja focus:border-transparent transition duration-200 resize-none"
+            placeholder="Escribe tu mensaje aquí..."></textarea>
         </div>
-        <div class="text-center">
-          <button type="submit" class="bg-naranja hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded">Enviar</button>
+        <div class="text-center pt-2">
+          <button type="submit" class="bg-naranja hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
+            <i class="fas fa-paper-plane mr-2"></i>
+            <span class="btn-text">Enviar Mensaje</span>
+          </button>
         </div>
       </form>
     </div>
@@ -216,8 +243,8 @@ $cursos_proximos = obtenerCursosPublicados($conn, 'proximo');
     <span>Error al enviar el mensaje.</span>
   </div>
 
-  <script src="/assets/js/sc_index.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/assets/js/sc_index.js" defer></script>
   <?php unset($_SESSION['toast_error']); ?>
 </body>
 

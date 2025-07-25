@@ -31,7 +31,8 @@ LIMIT $inicio, $por_pagina
 ";
 $resultado = $conn->query($query);
 
-$cursos = $conn->query("SELECT id, nombre FROM cursos");
+// $cursos = $conn->query("SELECT id, nombre FROM cursos ORDER BY id DESC");
+$cursos = $conn->query("SELECT id, nombre FROM cursos ORDER BY id DESC, nombre ASC");
 ?>
 
 <link rel="stylesheet" href="/assets/css/st_views.css">

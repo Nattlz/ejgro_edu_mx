@@ -41,12 +41,12 @@ SELECT c.id, c.nombre_completo, c.correo, c.uuid, c.numero_certificado, c.genera
 FROM constancias c
 JOIN cursos cu ON c.curso_id = cu.id
 $condicion
-ORDER BY c.generado_en DESC
+ORDER BY cu.nombre ASC, c.generado_en DESC
 LIMIT $inicio, $por_pagina
 ";
 $resultado = $conn->query($query);
 
-$cursos_all = $conn->query("SELECT id, nombre FROM cursos");
+$cursos_all = $conn->query("SELECT id, nombre FROM cursos ORDER BY id DESC");
 ?>
 
 <link rel="stylesheet" href="/assets/css/st_views.css">
@@ -60,8 +60,8 @@ $cursos_all = $conn->query("SELECT id, nombre FROM cursos");
         <input type="text" name="buscar_nombre" placeholder="Buscar por nombre..."
             value="<?= htmlspecialchars($_GET['buscar_nombre'] ?? '') ?>">
         <label for="curso_id">Curso:</label>
-        <select name="curso_id" id="curso_id">
-            <option value="">-- Todos --</option>
+        <select name="curso_id" id="curso_id" class="select-curso-compacto">
+            <option value=""> Selecciona un Curso </option>
             <?php while ($c = $cursos_all->fetch_assoc()): ?>
                 <option value="<?= $c['id'] ?>" <?= ($_GET['curso_id'] ?? '') == $c['id'] ? 'selected' : '' ?>>
                     <?= htmlspecialchars($c['nombre']) ?>
@@ -126,7 +126,8 @@ $cursos_all = $conn->query("SELECT id, nombre FROM cursos");
 
     <div class="paginacion">
         <?php
-        function mostrarPagina($i, $pagina, $params) {
+        function mostrarPagina($i, $pagina, $params)
+        {
             $params['pagina'] = $i;
             $url = 'dashboard.php?' . http_build_query($params);
             $clase = $i === $pagina ? 'activo' : '';

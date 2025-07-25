@@ -114,10 +114,26 @@
 }
 
 .buscador input[type="text"],
-.buscador input[type="date"] {
+.buscador input[type="date"],
+.buscador select {
     padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+    height: 38px;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.buscador input[type="text"]:focus,
+.buscador input[type="date"]:focus,
+.buscador select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .buscador button {
@@ -594,4 +610,67 @@
 .estado.finalizado {
     background-color: #e5e7eb;
     color: #374151;
+}
+
+.select-curso-compacto {
+    max-width: 300px !important;
+    width: 300px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.select-curso-compacto option {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.select-curso-compacto.compacto {
+    max-width: 200px !important;
+    width: 200px !important;
+}
+
+.buscador select[name="curso_id"] {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+    min-width: 200px;
+    max-width: 250px;
+    height: 38px;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.buscador select[name="curso_id"]:hover {
+    border-color: #007bff;
+}
+
+.buscador select[name="curso_id"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.buscador select[name="curso_id"] option {
+    padding: 8px;
+    color: #333;
+    background-color: white;
+}
+
+.buscador select[name="curso_id"] option[value=""] {
+    color: #666;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .buscador select[name="curso_id"] {
+        min-width: 150px;
+        max-width: 200px;
+    }
 }

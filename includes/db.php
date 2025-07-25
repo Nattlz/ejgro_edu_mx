@@ -1,13 +1,8 @@
 <?php
 $host = "localhost";
-$user = "root";
-$pass = "YWizardB0309";
-$dbname = "imjgroconstanciaspruebas";
-// HostGator
-// $host = "localhost";
-// $user = "poderju1_adminconst";
-// $pass = "oaDnX)+p(t[)";
-// $dbname = "poderju1_imjgroconstancias";
+$user = "poderju1_adminconst";
+$pass = "oaDnX)+p(t[)";
+$dbname = "poderju1_imjgroconstancias";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
